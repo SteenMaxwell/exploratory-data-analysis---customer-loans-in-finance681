@@ -95,8 +95,6 @@ connector = RDSDatabaseConnector(credentials)
 connector.initialise_engine()
 loan_payments_df = connector.extract_data()
 connector.save_data_csv(loan_payments_df)
-print(loan_payments_df.head())
-
 
 
 def loading_data():

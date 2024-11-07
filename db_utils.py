@@ -2,6 +2,7 @@ from yaml import safe_load
 import pandas as pd
 from sqlalchemy import create_engine
 
+
 def loading_credentials():
     '''
     This function loads the credentials from a YAML file for the AWS RDS so the dataset can be accessed locally.
@@ -32,6 +33,8 @@ class RDSDatabaseConnector:
         saves pandas DataFrame to a CSV file.
 
     '''
+
+
     def __init__(self, credentials):
         '''
         initialises RDSDatabaseConnector with the database credentials.
@@ -77,34 +80,22 @@ class RDSDatabaseConnector:
 
         loan_payments_df = pd.read_sql_table('loan_payments', self.engine)
         return loan_payments_df
-    
-    def save_data_csv(self, loan_payments_df):
-        '''
-        This method saves the DataFrame to a CSV file.
 
-        Parameters:
-        ----------
-        loan_payments_df: DataFrame
-            pandas DataFrame of 'loan_payments' from the RDS database.
-        '''
 
-        loan_payments_df.to_csv('loan_payments_data.csv', index=False)
+def save_data_csv(df):
+    '''
+    This method saves the DataFrame to a CSV file.
 
-credentials = loading_credentials()
-connector = RDSDatabaseConnector(credentials)
+    Parameters:
+    ----------
+    loan_payments_df: DataFrame
+        pandas DataFrame of 'loan_payments' from the RDS database.
+    '''
+
+    df.to_csv('loan_payments_data.csv', index=False)
+
+credentials_needed = loading_credentials()
+connector = RDSDatabaseConnector(credentials_needed)
 connector.initialise_engine()
 loan_payments_df = connector.extract_data()
-connector.save_data_csv(loan_payments_df)
-
-
-def loading_data():
-    '''
-    This function loads the data from the CSV file to a pandas DataFrame and returns it.
-
-    Returns:
-    -------
-    returns pandas DataFrame of 'loan_payments'.
-    '''
-
-    loan_payments_df = pd.read_csv('loan_payments_data.csv')
-    return loan_payments_df
+save_data_csv(loan_payments_df)

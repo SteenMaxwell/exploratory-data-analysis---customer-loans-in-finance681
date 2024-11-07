@@ -94,6 +94,20 @@ def save_data_csv(df):
 
     df.to_csv('loan_payments_data.csv', index=False)
 
+
+def loading_data():
+    '''
+    This function loads the data from the CSV file to a pandas DataFrame and returns it.
+
+    Returns:
+    -------
+    returns pandas DataFrame of 'loan_payments'.
+    '''
+
+    df = pd.read_csv('loan_payments_data.csv')
+    return df
+
+
 credentials_needed = loading_credentials()
 connector = RDSDatabaseConnector(credentials_needed)
 connector.initialise_engine()

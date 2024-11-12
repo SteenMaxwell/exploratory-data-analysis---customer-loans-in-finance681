@@ -1,18 +1,22 @@
 import pandas as pd
 
+
 class DataFrameInfo:
     def __init__(self, df):
         self.df = df
     
+
     def dtype_for_columns(self):
         '''Returns the dtype for each column in the DataFrame.'''
         column_dtypes = self.df.dtypes
         return column_dtypes
 
+
     def shape_of_data(self):
         '''Returns the shape of the data: a tuple (rows, columns).'''
         shape = self.df.shape
         return shape
+
 
     def describe_columns(self, columns):
         '''Returns a description of each column in a DataFrame.'''
@@ -20,6 +24,7 @@ class DataFrameInfo:
         for col in columns:
             described_columns[col] = self.df[col].describe()
         return described_columns
+
 
     def extract_statistical_values(self):
         '''Extracts and returns mean, median and standard deviation for numeric columns.'''
@@ -31,11 +36,13 @@ class DataFrameInfo:
         print("Statistics:\n")
         return statistics
 
+
     def distinct_values_categorical_count(self):
         '''Returns the distinct number of unique items in the categorical columns.'''
         categorical_columns = self.df.select_dtypes(include='category').columns
         distinct_counts = {col: self.df[col].nunique() for col in categorical_columns}
         return distinct_counts
+
 
     def null_value_count(self, as_percentage=False):
         '''Returns either the null count as a percentage or a number depending on the argument used.

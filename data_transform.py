@@ -11,9 +11,11 @@ class DataTransform:
             self.df[col] = pd.to_datetime(self.df[col], format='%b-%Y', errors='coerce')
         return self.df
     
-    #def numeric_conversion(self):
-    #    self.df['term'] = self.df['term'].str.extract(r'(\d+)').astype('Int64')
-    #    return self.df
+
+    def set_string_columns(self, columns):
+        for col in columns:
+            self.df[col] = self.df[col].astype('string')
+        return self.df
     
 
     def categorical_conversion(self, columns):
@@ -26,16 +28,16 @@ class DataTransform:
         categorical_columns = [
             'grade', 'sub_grade', 'employment_length', 'home_ownership', 
             'verification_status', 'loan_status', 'payment_plan', 
-            'purpose', 'application_type', 'term'
+            'purpose', 'application_type', 'term', 'policy_code'
             ]
         
         self.categorical_conversion(categorical_columns)
         return self.df
     
-    
+
     def transform(self):
         self.date_conversion_to_datetime(['issue_date', 'earliest_credit_line', 'last_payment_date', 'next_payment_date', 'last_credit_pull_date'])
-        #self.numeric_conversion()
+        self.set_string_columns(['id', 'member_id'])
         self.set_categorical_columns()
 
         return self.df

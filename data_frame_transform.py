@@ -43,4 +43,29 @@ class DataFrameTransform:
             self.df[col] = log_transformed
 
         return self.df
-            
+
+
+    def remove_outliers(self, columns=None, threshold=1.5):
+        if columns is None:
+            columns = self.df.select_dtypes(include='number').columns
+        else:
+            columns = [col for col in columns if col in self.df.select_dtypes(include='number').columns]
+
+        for col in columns:
+            Q1 = self.df[col].quantile(0.25)
+            Q3 = self.df[col].quantile(0.75)
+            IQR = Q3 -Q1
+            lower_bound = Q1 - threshold * IQR
+            upper_bound = Q3 + threshold * IQR
+
+            self.df = self.df[(self.df[col] >= lower_bound) & (self.df[col] <= upper_bound)]
+
+        return self.df
+    
+
+    def remove_high_correlation_columns(self, columns_to_remove):
+        columns_to_remove = [col for col in columns_to_remove if col in self.df.columns]
+
+        self.df = self.df.drop(columns=columns_to_remove)
+
+        return self.df

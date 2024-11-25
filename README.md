@@ -68,7 +68,7 @@ These findings allow the company to identify high-risk loans and adjust strategi
 
 2) Install dependencies:
    ```bash
-   pip install (create a txt file for dependencies)
+   pip install -r requirements.txt
    ```
 
 ## Usage

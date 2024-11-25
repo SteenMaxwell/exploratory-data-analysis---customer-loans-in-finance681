@@ -22,14 +22,20 @@
 ## Description
 ### Aim of the Project
 The aim of this project is to extract a dataset(`loan_payments`) from an AWS RDS instance and perform exploratory data analysis (EDA). This analysis aims to:
-- Understand the dataset through transformations, visualizations, and insights.
+- Understand the dataset through transformations, visualisations, and insights.
 
 Another aim of the project was to analyse specific columns in the dataset and assess whether certain criteria causes an increase in risk that a customer would not be able to repay their loan back in full. This would be supported by visualisations of the dataset to see the results found.
 
 ### Results Found
-From the first part of this project, the EDA, I examined the dataset and transformed the data so I could interpret the skew, outliers and correlation playing a part ...
-
-For the second part of this project, I was able to analyse specific columns within the dataset to establish specific values for the company in regards to their revenue loss and number of loans that have become Charged Off or are at risk of becoming Charged Off. I was able to determine that a customers loan Grade and Purpose for having a loan affected the risk to whether a loan would be paid back in full or not. A lower loan Grade (Grades D, E or F) resulted in a loan being more of a risk for the company and that a customers purpose of having a loan for a small business would be a significant increase in risk that a loan would not be paid back in full. With these insights the company would now be able to re-strategise the loans they give to customers based on certain criteria to prevent revenue loss for the company.
+1) EDA insights:
+   - The dataset was cleaned and analysed to address skewness, outliers, and collinearity between columns.
+  
+2) Analysis of Revenue loss and loss Indicators:
+   - The Total Revenue Loss for the company for all Charged Off loans: £67,420,215.03
+   - Loan Grade: Customers with lower grades (e.g., Grades D, E, F) posed a significantly higher risk of being Charged Off.
+   - Loan Purpose: Loans for purposes like "small business" were highly correlated with increased risk.
+  
+These findings allow the company to identify high-risk loans and adjust strategies to minimise revenue loss.
 
 ### Visualisations of data
 - **Correlation Matrix:**
@@ -70,7 +76,7 @@ For the second part of this project, I was able to analyse specific columns with
    Open the `EDA_final_workflow.ipynb` notebook to perform exploratory data analysis and generate key insights.
 
 2) **Run analysis overview:**
-   Open the analysis.ipynb notebook to analyze risk factors and generate advanced visualisations.
+   Open the `analysis.ipynb` notebook to analyze risk factors and generate advanced visualisations.
 
 ## Files
 `db_utils.py` - Contains python code to extract and save the data to a csv file from an AWS RDS database. The code in this file initialises a SQLAlchemy engine to do this, and stores the data locally in a pandas DataFrame.

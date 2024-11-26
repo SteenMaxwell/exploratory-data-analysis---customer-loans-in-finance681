@@ -111,7 +111,7 @@ class Plotter:
         numeric_columns = [col for col in columns if col in self.df.select_dtypes(include='number').columns]
 
         rows = (len(numeric_columns) + cols -1) // cols
-        fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 5 * rows))
+        axes = plt.subplots(rows, cols, figsize=(6 * cols, 5 * rows))[1]
         axes = axes.flatten()
 
         for i, col in enumerate(numeric_columns):
@@ -138,8 +138,11 @@ class Plotter:
 
         cmap = sns.diverging_palette(220, 10, as_cmap=True)
 
+        plt.figure(figsize=(10,20))
         sns.heatmap(corr, mask=mask, square=True, linewidths=.5, annot=True,
-                    annot_kws={'size': 8}, fmt='.2f', cmap=cmap)
+                    annot_kws={'size': 8}, fmt='.2f', cmap=cmap,
+                    cbar_kws={"shrink": 0.4, "label": "Correlation Coefficient"})
+
         plt.yticks(rotation=0, fontsize=8)
         plt.xticks(fontsize=8)
         plt.title('Correlation matrix of all Numerical variables')

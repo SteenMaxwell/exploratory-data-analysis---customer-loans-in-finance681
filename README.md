@@ -6,14 +6,14 @@
 3. [Installation instructions](#Installation-instructions)
 4. [Usage](#Usage)
 5. [Files](#Files)
-6. [Step-by-step guide of project workflow](#Step-by-step-guide-of-project-workflow)
-7. [License](#License)
+6. [License](#License)
 
 ## Dependencies
 - `matplotlib`
 - `numpy`
 - `Python` 
 - `Pandas`
+- `scipy.stats`
 - `seaborn`
 - `Sqlalchemy`
 - `Yaml`
@@ -41,7 +41,7 @@ These findings allow the company to identify high-risk loans and adjust strategi
 - **Correlation Matrix:**
   A heatmap visualising correlations between transformed columns in the dataset.
 
-![image](https://github.com/user-attachments/assets/93655245-9eff-4d2d-92e8-6e3979d23d93)
+![image](https://github.com/user-attachments/assets/1ca6d7d2-8c12-4d30-8f66-7c8ade02b623)
 
 - **Revenue Loss Analysis:**
   A pie chart displaying the percentage of lost or at-risk revenue compared to expected revenue.
@@ -83,8 +83,19 @@ These findings allow the company to identify high-risk loans and adjust strategi
 
 `loan_payments_data.csv` - Database containing all the columns and rows needed for an EDA analysis
 
+`EDA_final_workflow.ipynb` - Jupyter notebook that contains the final workflow for performing EDA. This notebook loads the raw dataset, processes the data, handles missing values, explores correlations, and creates various visualisations to summarise the dataset.
 
-## Step-by-step guide of project workflow
+`transformed_financial_loan_data.csv` - A CSV file that contains the transformed version of the original financial loan data. This file has undergone data transformations in preparation for analysis.
+
+`analysis.ipynb` - Jupyter notebook that focuses on analyzing the loan data in-depth. Looks at the company's revenue and various factors for revenue loss.
+
+`data_transform.py` - A Python script containing the main class for methods that transform the loan data columns to the correct dtypes.
+
+`data_frame_info.py` - A Python script that contains the main class for methods that extract and summarise information from pandas DataFrames. It is useful for quickly analysing the structure, data types, and summary statistics of datasets.
+
+`data_frame_transform.py` - Contains the main class for applying various data transformations to the DataFrame.
+
+`plotter.py` -   Contains the main class for visualisation methods for plotting various types of graphs. It includes methods for plotting correlation matrices, distribution plots, and boxplots to assist in analysing the data visually.
 
 
 ## License 

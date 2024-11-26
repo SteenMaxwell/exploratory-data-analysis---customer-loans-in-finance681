@@ -11,6 +11,7 @@ Modules:
 from data_frame_info import DataFrameInfo
 import pandas as pd
 import numpy as np
+from scipy.stats import boxcox
 
 
 class DataFrameTransform:
@@ -87,7 +88,7 @@ class DataFrameTransform:
         return self.df
 
 
-    def transform_skewed_columns(self, skewed_columns):
+    def best_transform_skewed_columns(self, skewed_columns):
         """
         Applies a logarithmic transformation to specified skewed columns to reduce skewness.
         
@@ -101,9 +102,40 @@ class DataFrameTransform:
         pd.DataFrame
             The DataFrame with transformed skewed columns.
         """
+        
+        def calculate_skewness(col_data, method):
+            """Helper function to apply a transformation and calculate skewness."""
+            if method == 'log':
+                transformed = col_data.apply(lambda x: np.log(x) if x > 0 else 0)
+            elif method == 'sqrt':
+                transformed = col_data.apply(lambda x: np.sqrt(x) if x >= 0 else 0)
+            elif method == 'boxcox':
+                if (col_data > 0).all():
+                    transformed, _ = boxcox(col_data)
+                    transformed = pd.Series(transformed)
+                else:
+                    return float('inf')
+            return abs(transformed.skew())
+
         for col in skewed_columns:
-            log_transformed = self.df[col].apply(lambda i: np.log(i) if i > 0  else 0)
-            self.df[col] = log_transformed
+            col_data = self.df[col]
+            original_skew = abs(col_data.skew())
+
+            transformations = ['log', 'sqrt', 'boxcox']
+            skew_results = {}
+            for method in transformations:
+                skew_results[method] = calculate_skewness(col_data, method)
+
+            best_method = min(skew_results, key=skew_results.get)
+            best_skew = skew_results[best_method]
+
+            if best_skew < original_skew:
+                if best_method == 'log':
+                    self.df[col] = col_data.apply(lambda x: np.log(x) if x > 0 else 0)
+                elif best_method == 'sqrt':
+                    self.df[col] = col_data.apply(lambda x: np.sqrt(x) if x >= 0 else 0)
+                elif best_method == 'boxcox':
+                    self.df[col], _ = boxcox(col_data)
 
         return self.df
 

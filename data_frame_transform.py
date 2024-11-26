@@ -6,6 +6,7 @@ Modules:
 - DataFrameInfo: Custom class to extract information from pandas DataFrames.
 - pandas (pd): Essential library for data manipulation and analysis.
 - numpy (np): Library for numerical operations, often used alongside pandas for data handling.
+- scipy.stats: includes Box-Cox transformation for normalising data.
 '''
 
 from data_frame_info import DataFrameInfo

@@ -99,4 +99,4 @@ These findings allow the company to identify high-risk loans and adjust strategi
 
 
 ## License 
-This project is licensed under ...
+This project is licensed under MIT license.

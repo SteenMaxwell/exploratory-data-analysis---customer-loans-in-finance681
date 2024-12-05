@@ -1,4 +1,4 @@
-# exploratory-data-analysis---customer-loans-in-finance
+# Exploratory Data Analysis for Customer Loans in Finance
 
 ## table of contents
 1. [Dependencies](#Dependencies)
